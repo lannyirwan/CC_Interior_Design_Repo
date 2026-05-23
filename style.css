@@ -34,6 +34,9 @@
   --gray:        #6B6B60;
   --dark:        #2A2520;
   --darker:      #1A1A18;
+  --accent-badge: var(--zen-jade);
+  --color-stars:  var(--zen-antique);
+  --color-error:  #e05252;
 
   --bg:          #F5F0E8;
   --bg-alt:      #E8F2E4;
@@ -222,6 +225,7 @@ button { cursor: pointer; border: none; background: none; font-family: var(--fon
   inset: 0 0 auto;
   z-index: 1000;
   height: var(--nav-h);
+  background: linear-gradient(to bottom, rgba(0,0,0,.35) 0%, transparent 100%);
   transition: background var(--t-base), box-shadow var(--t-base);
 }
 .navbar.scrolled {
@@ -461,7 +465,7 @@ button { cursor: pointer; border: none; background: none; font-family: var(--fon
 }
 .about-img-accent img { width: 100%; height: 148px; object-fit: cover; }
 .about-badge {
-  background: var(--zen-jade);
+  background: var(--accent-badge);
   color: #fff;
   padding: 12px 14px;
   text-align: center;
@@ -687,7 +691,7 @@ button { cursor: pointer; border: none; background: none; font-family: var(--fon
   display: flex;
   transition: transform .7s cubic-bezier(.25,.46,.45,.94);
 }
-.t-card { min-width: 100%; padding: 0 10%; }
+.t-card { min-width: 100%; padding: 0 clamp(4%, 10%, 80px); }
 
 .t-quote { font-size: 2.4rem; color: var(--gold); opacity: .22; margin-bottom: 20px; line-height: 1; }
 .t-text {
@@ -706,7 +710,7 @@ button { cursor: pointer; border: none; background: none; font-family: var(--fon
 .t-avatar img { width: 100%; height: 100%; object-fit: cover; }
 .t-info h4 { font-family: var(--font-h); font-weight: 600; font-size: 1rem; color: var(--text); margin-bottom: 3px; }
 .t-info span { font-family: var(--font-caps); font-size: .7rem; letter-spacing: 1px; color: var(--text-muted); }
-.stars { color: var(--zen-antique); font-size: .72rem; margin-top: 5px; }
+.stars { color: var(--color-stars); font-size: .72rem; margin-top: 5px; }
 
 .slider-controls {
   display: flex; align-items: center; justify-content: center;
@@ -811,7 +815,7 @@ button { cursor: pointer; border: none; background: none; font-family: var(--fon
   box-shadow: 0 0 0 3px rgba(143,175,138,.14);
 }
 .form-group input.err,
-.form-group textarea.err { border-color: #e05252; box-shadow: 0 0 0 3px rgba(224,82,82,.1); }
+.form-group textarea.err { border-color: var(--color-error); box-shadow: 0 0 0 3px rgba(224,82,82,.1); }
 
 .form-group textarea { resize: vertical; min-height: 128px; }
 .form-group select {
@@ -821,7 +825,7 @@ button { cursor: pointer; border: none; background: none; font-family: var(--fon
   padding-right: 36px;
 }
 
-.f-error { display: block; font-size: .76rem; color: #e05252; margin-top: 5px; }
+.f-error { display: block; font-size: .76rem; color: var(--color-error); margin-top: 5px; }
 
 #submitBtn .btn-spinner { display: none; }
 #submitBtn.loading .btn-text   { display: none; }
@@ -839,7 +843,7 @@ button { cursor: pointer; border: none; background: none; font-family: var(--fon
   padding: 14px 16px; margin-top: 14px;
   background: rgba(224,82,82,.07);
   border-radius: var(--r-sm);
-  color: #e05252; font-size: .88rem;
+  color: var(--color-error); font-size: .88rem;
 }
 .form-err-msg i { font-size: 1.1rem; flex-shrink: 0; }
 
@@ -867,7 +871,7 @@ button { cursor: pointer; border: none; background: none; font-family: var(--fon
 }
 .footer-brand > p { font-size: .88rem; font-weight: 300; color: rgba(255,255,255,.42); line-height: 1.85; max-width: 270px; }
 
-.social-links { display: flex; gap: 10px; }
+.social-links { display: flex; flex-wrap: wrap; gap: 10px; }
 .social-link {
   width: 36px; height: 36px; border-radius: 2px;
   background: rgba(255,255,255,.07);
