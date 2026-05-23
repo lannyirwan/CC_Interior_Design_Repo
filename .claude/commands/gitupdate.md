@@ -1,3 +1,32 @@
+You are performing a full GitHub sync for the CC Interiors project. Execute each step in order. Do not skip any step.
+
+---
+
+## Step 1 — Secret scan (MUST run first, abort if secrets found)
+
+Search every tracked file for patterns that indicate secrets. Run the following checks and **stop immediately** if any match is found outside of an expected safe context:
+
+- API keys / tokens: patterns like `sk-`, `ghp_`, `xoxb-`, `AKIA`, `AIza`, `ya29.`
+- Passwords in code: `password\s*=\s*["'][^"']{4,}`, `passwd\s*=`, `secret\s*=\s*["']`
+- Private keys: `-----BEGIN (RSA|EC|OPENSSH|PGP) PRIVATE KEY`
+- `.env` files: any file named `.env`, `.env.local`, `.env.production`
+- Hard-coded email/password combos beyond the FormSubmit endpoint (which is intentionally public)
+
+The one allowed exception is the FormSubmit URL in `script.js` — `https://formsubmit.co/ajax/lannyirwan@gmail.com` is public by design.
+
+If any secret pattern is found: **stop, report the finding to the user, and do not proceed.**
+
+Use Grep to search across all non-`.git` files.
+
+---
+
+## Step 2 — Rewrite README.md
+
+Rewrite `README.md` completely using the style below. Follow the alfredang/ai-cms README style exactly: centered header block, shields.io badges, bold tagline, live demo link, then content sections in order.
+
+Adapt all content specifically for CC Interiors. Use this template:
+
+```markdown
 <div align="center">
 
 # CC Interiors — Luxury Interior Design
@@ -145,3 +174,76 @@ To deploy your own fork:
 ## License
 
 MIT — free to use and adapt for any project.
+```
+
+Write this content verbatim to `README.md`.
+
+---
+
+## Step 3 — Stage and commit
+
+Stage only the project source files — never stage `.env` files, files containing credentials, or any file that failed the secret scan in Step 1.
+
+Files to stage:
+- `index.html`
+- `style.css`
+- `script.js`
+- `README.md`
+- `.github/workflows/deploy.yml`
+- `CLAUDE.md`
+- `.claude/commands/gitupdate.md`
+
+Run:
+```
+git add index.html style.css script.js README.md .github/workflows/deploy.yml CLAUDE.md .claude/commands/gitupdate.md
+git status
+```
+
+Review the staged files list. Abort if anything unexpected appears.
+
+Then commit:
+```
+git commit -m "update site, README, and gitupdate command"
+```
+
+---
+
+## Step 4 — Push to GitHub
+
+```
+git push origin main
+```
+
+Confirm the push succeeded. GitHub Actions will automatically trigger the `Deploy to GitHub Pages` workflow on `main` push — no manual step needed.
+
+---
+
+## Step 5 — Update repository About (description, website, topics)
+
+Use the GitHub CLI to update the repo metadata:
+
+```
+gh repo edit lannyirwan/CC_Interior_Design_Repo \
+  --description "Luxury interior design landing page — static HTML/CSS/JS, dark mode, portfolio lightbox, FormSubmit contact form. Deployed on GitHub Pages." \
+  --homepage "https://lannyirwan.github.io/CC_Interior_Design_Repo/" \
+  --add-topic "html" \
+  --add-topic "css" \
+  --add-topic "javascript" \
+  --add-topic "landing-page" \
+  --add-topic "interior-design" \
+  --add-topic "github-pages" \
+  --add-topic "static-site" \
+  --add-topic "dark-mode"
+```
+
+---
+
+## Step 6 — Final report
+
+After all steps complete, report back with:
+- Confirmation that the secret scan found nothing
+- The README sections written
+- The commit hash and push status
+- The GitHub Pages workflow trigger status
+- The repo About fields that were set
+- The live site URL: `https://lannyirwan.github.io/CC_Interior_Design_Repo/`
