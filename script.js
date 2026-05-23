@@ -269,6 +269,14 @@ function validate(input, errId, msg) {
   });
 });
 
+function speakAlert(text) {
+  if (!window.speechSynthesis) return;
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.rate  = 0.9;
+  utter.pitch = 1.1;
+  window.speechSynthesis.speak(utter);
+}
+
 contactForm.addEventListener('submit', async e => {
   e.preventDefault();
 
@@ -300,6 +308,7 @@ contactForm.addEventListener('submit', async e => {
 
     contactForm.style.display = 'none';
     formSuccess.style.display = 'block';
+    speakAlert('HURRAY! Your form is submitted successfully.');
   } catch {
     formErrMsg.style.display = 'flex';
     submitBtn.classList.remove('loading');
